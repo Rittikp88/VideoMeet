@@ -9,7 +9,7 @@ export const useSocket = () => {
 ;}
 
 export const SocketProvider = (props) => {
-    const socket = useMemo(() => io.connect("https://video-meet-server-git-main-rittikp88.vercel.app"),[]);
+    const socket = useMemo(() => io.connect("video-meet-server.vercel.app"),[]);
     return (
     <SocketContext.Provider value ={socket}>
         {props.children}
