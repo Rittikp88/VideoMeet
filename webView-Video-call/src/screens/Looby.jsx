@@ -36,7 +36,7 @@ function Looby() {
         
       <h1 className="video-call-heading">Video Call</h1>
       <form onSubmit={handleSubmitForm}>
-        <label htmlFor="email">your Name</label>
+        <label htmlFor="email">Name</label>
         <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         <label htmlFor="room">Room No.</label>
         <input type="text" id="room" value={room} onChange={(e) => setRoom(e.target.value)}/>
