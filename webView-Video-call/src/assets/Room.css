@@ -1,0 +1,99 @@
+
+
+.video-container {
+  position: relative;
+  display: flex;
+  height: 100vh;
+  background-color: blue;
+  justify-content: space-between; /* Add this to space the videos apart */
+  margin: 0; /* Add this to remove any default margin */
+  overflow: hidden;
+
+}
+
+.remote-video-container {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  padding-top: 20px;
+  margin: 0; /* Add this to remove any default margin */
+}
+
+/* Control the left side */
+.left {
+  background-color: #111;
+}
+
+/* Control the right side */
+.right {
+  background-color: red;
+}
+
+.remote-video,
+.local-video {
+  height: 100%;
+  width: 100%;
+  object-fit: cover; /* Optional: This ensures the video covers the entire container without distortion */
+  margin-top: -20px;
+}
+
+/* Create a separator between the videos */
+.separator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: white;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.call-controls {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  z-index: 2; /* Buttons should have a higher z-index to be above the video */
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.control-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.control-btn:hover {
+  background-color: #0056b3;
+}
+
+
+
+/* Responsive adjustments for mobile */
+@media screen and (max-width: 768px) {
+  .video-container {
+    flex-direction: column; /* Stack videos in a column */
+    /* height: auto; Remove fixed height for video container */
+  }
+  .remote-video-container,
+  .local-video-container {
+    height: 50vh; /* Adjust the height for individual videos */
+    padding-top: 0; /* Remove padding */
+    margin-bottom: -20px;
+    /* margin-bottom: 2px; Add spacing between videos */
+  }
+  .separator {
+    width: 100%; /* Set the width to span the entire container horizontally */
+    height: 2px; /* Set the height for horizontal line */
+    top: 50%; /* Center the line horizontally */
+    transform: translateY(-50%);
+  }
+
+  /* / */
+}
