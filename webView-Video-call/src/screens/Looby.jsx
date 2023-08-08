@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import {useSocket} from '../context/SocketProvider';
 import viteLogo from '/vite.svg'
 import '../assets/Looby.css'
+// const net = require('net');
 
 function Looby() {
   const [email, setEmail] = useState("");
@@ -10,6 +11,21 @@ function Looby() {
 
   const socket = useSocket();
   const navigate = useNavigate()
+
+  // useEffect(() => {
+
+  //   const host = '44.207.3.207';
+  //   const port = 9999;
+
+  //   // const net = require('net');
+  //   const client = new net.Socket();
+
+  //   client.connect(port, host, () => {
+  //     console.log('Connected to server');
+  //   });
+
+
+  // },[])
   const handleSubmitForm = useCallback((e) => {
     e.preventDefault();
     socket.emit("room:join", {email, room});
@@ -34,7 +50,7 @@ function Looby() {
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
         
-      <h1 className="video-call-heading">Video Call</h1>
+      <h1 className="video-call-heading">Video Meet</h1>
       <form onSubmit={handleSubmitForm}>
         <label htmlFor="email">Name</label>
         <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />

@@ -3,17 +3,19 @@ import "../assets/CallUser.css";
 import { FcVideoCall } from "react-icons/fc";
 import { useSocket } from "../context/SocketProvider";
 import peer from '../service/peer';
+import { useFrameSocket } from "../context/FramesSocketProvider";
 
 function CallUser(props) {
   const socket = useSocket();
+  const socket_client = useFrameSocket()
   const remoteSocketId = props.remoteSocketId;
 
   const handleCallUser = useCallback(async() => {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({
-            // audio: true,
-            video: true,
-        })
+          video: { facingMode: 'user' }, // 'user' or 'environment' based on the camera you want
+          audio: true,
+        }) 
         const offer = await peer.getoffer();
         socket.emit("user:call", { to: remoteSocketId, offer });
         // localVideoref.current.srcObject = stream; // Set srcObject instead of src
