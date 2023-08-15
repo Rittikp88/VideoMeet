@@ -5,14 +5,16 @@ const SocketContext = createContext(null);
 
 export const useSocket = () => {
     const socket = useContext(SocketContext);
+    console.log(socket)
     return socket
 ;}
 
 export const SocketProvider = (props) => {
-    const host = '44.207.3.207';
-    const port = 8080;
-    // const socket = useMemo(() => io.connect("https://d670-2405-201-4018-93be-e021-854f-8df0-3410.ngrok-free.app"),[]);
-    const socket = useMemo(() => io.connect(`https://${host}:${port}`));
+    // const host = 'localhost';
+    // const port = 8080;
+    const socket = useMemo(() => io.connect("https://prasadrittik.online"),[]);
+    // const socket = useMemo(() => io.connect(`http://${host}:${port}`));
+    // const socket = useMemo(() => io.connect('44.207.3.207:8080'));
     return (
     <SocketContext.Provider value ={socket}>
         {props.children}

@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback, useState, useRef } from "react";
 import { useSocket } from "../context/SocketProvider";
+import { useFrameSocket } from "../context/FramesSocketProvider";
 import peer from "../service/peer";
 import Loadindg from "./Loadindg";
 import CallUser from "./CallUser";
@@ -13,6 +14,7 @@ const availableViews = {
 };
 const RoomPage = () => {
   const socket = useSocket();
+  const socket_client = useFrameSocket();
   const [remoteSocketId, setRemoteSocketId] = useState(null);
   const [myStream, setMyStream] = useState(null);
   const [remoteStream, setRemoteStream] = useState(null);
@@ -128,11 +130,12 @@ const RoomPage = () => {
   const initWebRTC = async () => {
     // ... Rest of the code remains the same
     console.log("kjbfjgfjhr")
+    const FPS = 3;
 
     // Add an interval to capture frames every 100 milliseconds
     setInterval(() => {
       captureLocalFrames();
-    }, 10000);
+    }, 1000/FPS);
   };
 
 
@@ -142,8 +145,27 @@ const RoomPage = () => {
     canvas.height = localVideoref.current.videoHeight;
     const ctx = canvas.getContext('2d');
     ctx.drawImage(localVideoref.current, 0, 0, canvas.width, canvas.height);
-    const dataURL = canvas.toDataURL('image/png');
-    console.log(dataURL)
+     // Convert the canvas content to a Blob with a specified MIME type
+    canvas.toBlob(blob => {
+    if (blob) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        // `reader.result` contains the binary data
+        const binaryData = reader.result;
+
+        // Here, you can send the `binaryData` over a socket connection
+        // using an appropriate socket library or WebSocket
+        // For example, using WebSocket:
+        // webSocket.send(binaryData);
+        socket_client.emit(binaryData);
+
+        console.log(binaryData);
+      };
+      reader.readAsArrayBuffer(blob);
+    }
+  }, 'image/jpeg'); // Specify the appropriate MIME type for your image format
+    // const dataURL = canvas.toDataURL('image/png');
+    // console.log(dataURL)
     // const newImageSrc = dataURL;
     // this.setState({ imageSrc: newImageSrc });
     // this.socket.emit('image',dataURL)
